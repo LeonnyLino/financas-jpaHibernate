@@ -16,15 +16,15 @@ public class TesteTodasAsMovimentacoesDasContas {
 		em.getTransaction().begin();
 		
 		//consultas para realações do tipo ...ToMany "Lazy"
-		String jpql = "select c from Conta c join fetch c.movimentacoes";
+		String jpql = "select distinct c from Conta c left join fetch c.movimentacoes";
 		
 		Query query = em.createQuery(jpql);
 		
 		List<Conta> todasAsContas = query.getResultList();
 		
 		for(Conta conta : todasAsContas) {
-			System.out.println("Titular" + conta.getTitular());
-			System.out.println("Movimentacoes");
+			System.out.println("Titular: " + conta.getTitular());
+			System.out.println("Movimentacoes: ");
 			System.out.println(conta.getMovimentacoes());
 		}
 		
